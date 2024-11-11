@@ -1,7 +1,7 @@
 export default function Sidebar() {
   return (
-    <div className="flex flex-col items-center justify-center bg-slate-500">
-      <h1 className="text-center mt-4 font-bold">Sidebar</h1>
+    <div className="flex p-5 w-60 items-center  bg-slate-500 justify-center rounded-r-md">
+      <h1 className="text-center font-bold justify-center">Sidebar</h1>
     </div>
   );
 }
