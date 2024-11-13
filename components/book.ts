@@ -1,26 +1,31 @@
 export class Book {
-  author: string;
-  title: string;
-  pages: number;
+  Author: string;
+  Booktitle: string;
+  Pages: number;
   didRead: boolean;
 
-  constructor(author: string, title: string, pages: number, didRead: boolean) {
-    this.author = author;
-    this.title = title;
-    this.pages = pages;
+  constructor(
+    Author: string,
+    Booktitle: string,
+    Pages: number,
+    didRead: boolean
+  ) {
+    this.Author = Author;
+    this.Booktitle = Booktitle;
+    this.Pages = Pages;
     this.didRead = didRead;
   }
   presentation() {
-    if (this.pages > 300) {
-      console.log(`${this.title} is a long book.`);
+    if (this.Pages > 300) {
+      console.log(`${this.Booktitle} is a long book.`);
     }
     return (
       "Hello fellow book club. Today we have a book from " +
-      this.author +
+      this.Author +
       " called " +
-      this.title +
+      this.Booktitle +
       " with " +
-      this.pages +
+      this.Pages +
       " many pages and I have read it which is " +
       this.didRead
     );

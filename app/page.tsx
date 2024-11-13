@@ -1,5 +1,10 @@
 import DisplayLibrary from "../components/displayLibrary";
+import { BookProvider } from "../components/book-context";
 
 export default function Home() {
-  return <DisplayLibrary />;
+  return (
+    <BookProvider>
+      <DisplayLibrary />
+    </BookProvider>
+  );
 }

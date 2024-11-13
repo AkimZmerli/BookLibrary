@@ -1,20 +1,14 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-
+import { Switch } from "@/components/ui/switch";
 import * as z from "zod";
+import { Book } from "../components/book";
+import { useState } from "react";
 
 const formSchema = z.object({
   Booktitle: z
@@ -30,7 +24,7 @@ const formSchema = z.object({
 });
 
 export function SidebarForm() {
-  const form = useForm<z.infer<typeof formSchema>>({
+  const { handleSubmit, control, watch } = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       Booktitle: "",
@@ -40,40 +34,77 @@ export function SidebarForm() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
+  const [books, setBooks] = useState<Book[]>([]);
 
-    console.log(values);
-  }
+  const onSubmit: SubmitHandler<z.infer<typeof formSchema>> = (data) => {
+    const newBook = new Book(
+      data.Author,
+      data.Booktitle,
+      data.Pages,
+      data.didRead
+    );
+    setBooks([...books, newBook]); // Add the new book to the books array
+    console.log(newBook.presentation());
+  };
+
   return (
-    <Form
-      resolver={zodResolver(formSchema)}
-      defaultValues={{
-        Booktitle: "",
-        Author: "",
-        Pages: 0,
-        didRead: false,
-      }}
-      onSubmit={(values) => console.log(values)}
-    >
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+    <Form onSubmit={handleSubmit(onSubmit)}>
+      <form className="space-y-5">
         <FormField
-          control={form.control}
-          name="Book title"
+          control={control}
+          name="Booktitle"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Username</FormLabel>
               <FormControl>
-                <Input placeholder="shadcn" {...field} />
+                <Input
+                  placeholder="Book title"
+                  {...field}
+                  type="text"
+                  value={watch("Booktitle")}
+                />
               </FormControl>
-              <FormDescription>
-                This is your public display name.
-              </FormDescription>
-              <FormMessage />
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+        <FormField
+          control={control}
+          name="Author"
+          render={({ field }) => (
+            <FormItem>
+              <FormControl>
+                <Input
+                  placeholder="Author"
+                  {...field}
+                  type="text"
+                  value={watch("Author")}
+                />
+              </FormControl>
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={control}
+          name="Pages"
+          render={({ field }) => (
+            <FormItem>
+              <FormControl>
+                <Input
+                  placeholder="Pages"
+                  {...field}
+                  type="number"
+                  value={watch("Pages")}
+                />
+              </FormControl>
+            </FormItem>
+          )}
+        />
+        <div
+          className="flex
+         flex-col mb-4"
+        >
+          <Switch type="checkbox" id="didRead" name="didRead" />
+          <Button type="submit">Submit</Button>
+        </div>
       </form>
     </Form>
   );
