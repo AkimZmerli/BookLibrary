@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import Sidebar from "@/components/sidebar";
+import { BookProvider } from "@/components/lib/BookContext";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -29,15 +30,16 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
       <body>
-        <div className="min-h-screen flex flex-col">
-          <Header />
-          <div className="flex flex-1">
-            <Sidebar className="w-96 h-full" />
-
-            <main className="bg-yellow-100">{children}</main>
+        <BookProvider>
+          <div className="min-h-screen flex flex-col">
+            <Header />
+            <div className="flex flex-1">
+              <Sidebar className="w-96 h-full" />
+              <main className="bg-yellow-100 flex-1">{children}</main>
+            </div>
+            <Footer />
           </div>
-          <Footer />
-        </div>
+        </BookProvider>
       </body>
     </html>
   );

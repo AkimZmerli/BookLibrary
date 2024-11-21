@@ -1,8 +1,9 @@
 "use client";
 
-import { books } from "../components/lib/bookdata";
+import { useBooks } from "./lib/BookContext";
 
 export default function DisplayLibrary() {
+  const { books } = useBooks();
   return (
     <div className="flex flex-col items-center justify-center ">
       <h1 className="text-2xl font-bold mb-4 mt-5">Book Library</h1>
