@@ -6,17 +6,13 @@ import { Book } from "../book";
 const initialBooks: Book[] = [
   new Book("Radikale Zärtlichkeit", "Seyda Kurt", 223, true),
   new Book("Polysecure", "Jessica Fern", 342, true),
-  new Book(
-    "Hass - Annäherung an ein widerspenstiges Gefühl",
-    "Seyda Kurt",
-    404,
-    false
-  ),
+  new Book("Hass ", "Seyda Kurt", 404, false),
 ];
 
 interface BookContextType {
   books: Book[];
   addBook: (book: Book) => void;
+  deleteBook: (title: string) => void;
 }
 
 const BookContext = createContext<BookContextType | undefined>(undefined);
@@ -28,8 +24,12 @@ export function BookProvider({ children }: { children: ReactNode }) {
     setBooks((prevBooks) => [...prevBooks, book]);
   };
 
+  const deleteBook = (title: string) => {
+    setBooks((prevBooks) => prevBooks.filter((book) => book.title !== title));
+  };
+
   return (
-    <BookContext.Provider value={{ books, addBook }}>
+    <BookContext.Provider value={{ books, addBook, deleteBook }}>
       {children}
     </BookContext.Provider>
   );

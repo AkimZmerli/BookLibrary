@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { Book } from "../components/book";
 import { useBooks } from "../components/lib/BookContext";
+import { Switch } from "../components/ui/switch";
 
 export function BookForm() {
   const [title, setTitle] = useState("");
@@ -77,11 +78,16 @@ export function BookForm() {
       </div>
       <div>
         <label className="flex items-center">
-          <input
+          {/* <input
             type="checkbox"
             checked={hasBeenRead}
             onChange={(e) => setHasBeenRead(e.target.checked)}
             className="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50"
+          /> */}
+          <Switch
+            id="hasBeenRead"
+            checked={hasBeenRead}
+            onCheckedChange={setHasBeenRead}
           />
           <span className="ml-2 text-sm text-gray-700">Has been read</span>
         </label>
