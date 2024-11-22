@@ -27,7 +27,7 @@ export function BookForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form onSubmit={handleSubmit} className="space-y-4 bg-zinc-300 ">
       <div>
         <label
           htmlFor="title"

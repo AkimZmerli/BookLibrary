@@ -7,8 +7,8 @@ export class Book {
   ) {}
 
   presentation() {
-    return `${this.title} by ${this.author} has ${this.pages} pages ${
-      this.hasBeenRead ? ". I read this ✓" : ". I want to read this"
+    return `${this.title} by ${this.author} has ${this.pages} pages. ${
+      this.hasBeenRead ? "✓" : "want to read"
     }`;
   }
 }
